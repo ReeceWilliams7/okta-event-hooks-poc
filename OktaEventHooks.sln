@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.6.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1F4E14FE-0E80-4BED-B79E-5CDF64F53760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OktaEventHookFunctionApp", "src\OktaEventHookFunctionApp\OktaEventHookFunctionApp.csproj", "{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Debug|x64.Build.0 = Debug|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Debug|x86.Build.0 = Debug|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Release|x64.ActiveCfg = Release|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Release|x64.Build.0 = Release|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Release|x86.ActiveCfg = Release|Any CPU
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2B2E927E-1DDA-4C32-BCD3-ED296D3E443A} = {1F4E14FE-0E80-4BED-B79E-5CDF64F53760}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB4AAA9F-2BC9-4E84-8B99-4D6158DD6041}
+	EndGlobalSection
+EndGlobal
