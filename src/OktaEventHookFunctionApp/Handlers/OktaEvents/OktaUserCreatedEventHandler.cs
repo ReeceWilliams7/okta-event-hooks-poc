@@ -39,6 +39,8 @@ namespace OktaEventHookFunctionApp.Handlers.OktaEvents
                 _logger.LogInformation($"Creating Zendesk user from Okta User with id {target.Id}");
                 await _zendeskUserService.CreateUserAsync(oktaUser);
             }
+
+            _logger.LogInformation($"Finished handling event type {oktaEvent.EventType}");
         }
     }
 }

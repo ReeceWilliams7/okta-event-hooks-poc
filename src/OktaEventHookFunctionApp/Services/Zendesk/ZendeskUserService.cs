@@ -48,14 +48,6 @@ namespace OktaEventHookFunctionApp.Services.Zendesk
             }
         }
 
-        public async Task<User> GetUserAsync(string oktaUserId)
-        {
-            var zendeskApi = CreateZendeskApiClient();
-
-            var foundUsers = await zendeskApi.Users.SearchByExternalIdAsync(oktaUserId);
-            return foundUsers.Users.First();
-        }
-
         public async Task UpdateUserAsync(OktaSdk.IUser oktaUser)
         {
             var zendeskApi = CreateZendeskApiClient();
@@ -111,6 +103,14 @@ namespace OktaEventHookFunctionApp.Services.Zendesk
         {
             _logger.LogDebug("Creating ZendeskApi client");
             return _zendeskApiFactory.Create();
+        }
+
+        private async Task<User> GetUserAsync(string oktaUserId)
+        {
+            var zendeskApi = CreateZendeskApiClient();
+
+            var foundUsers = await zendeskApi.Users.SearchByExternalIdAsync(oktaUserId);
+            return foundUsers.Users.First();
         }
     }
 }

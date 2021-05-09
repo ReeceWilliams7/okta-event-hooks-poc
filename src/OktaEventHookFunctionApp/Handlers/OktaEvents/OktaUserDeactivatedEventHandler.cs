@@ -2,7 +2,6 @@
 
 using Microsoft.Extensions.Logging;
 
-using OktaEventHookFunctionApp.Services.Okta;
 using OktaEventHookFunctionApp.Services.Zendesk;
 
 namespace OktaEventHookFunctionApp.Handlers.OktaEvents
@@ -13,14 +12,11 @@ namespace OktaEventHookFunctionApp.Handlers.OktaEvents
 
         private readonly ILogger<OktaUserCreatedEventHandler> _logger;
 
-        private readonly IOktaUserService _oktaUserService;
-
         private readonly IZendeskUserService _zendeskUserService;
 
-        public OktaUserDeactivatedEventHandler(ILogger<OktaUserCreatedEventHandler> logger, IOktaUserService oktaUserService, IZendeskUserService zendeskUserService)
+        public OktaUserDeactivatedEventHandler(ILogger<OktaUserCreatedEventHandler> logger,  IZendeskUserService zendeskUserService)
         {
             _logger = logger;
-            _oktaUserService = oktaUserService;
             _zendeskUserService = zendeskUserService;
         }
 
@@ -33,11 +29,8 @@ namespace OktaEventHookFunctionApp.Handlers.OktaEvents
             _logger.LogInformation($"{oktaEvent.Target.Count} targets found for event");
             foreach (var target in oktaEvent.Target)
             {
-                _logger.LogInformation($"Retrieving user from Okta with id {target.Id}");
-                var oktaUser = await _oktaUserService.GetUserAsync(target.Id);
-
                 _logger.LogInformation($"Suspending Zendesk user from Okta User with id {target.Id}");
-                await _zendeskUserService.SuspendUserAsync(oktaUser.Id);
+                await _zendeskUserService.SuspendUserAsync(target.Id);
             }
         }
     }

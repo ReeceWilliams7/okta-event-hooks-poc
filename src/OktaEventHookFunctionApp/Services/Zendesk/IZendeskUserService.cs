@@ -10,8 +10,6 @@ namespace OktaEventHookFunctionApp.Services.Zendesk
 
         Task UpdateUserAsync(OktaSdk.IUser oktaUser);
 
-        Task<ZendeskApi_v2.Models.Users.User> GetUserAsync(string oktaUserId);
-
         Task SuspendUserAsync(string oktaUserId);
 
         Task UnsuspendUserAsync(string oktaUserId);

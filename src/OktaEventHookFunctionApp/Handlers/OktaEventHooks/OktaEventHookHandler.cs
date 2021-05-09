@@ -22,7 +22,7 @@ namespace OktaEventHookFunctionApp.Handlers.OktaEventHooks
 
         public async Task HandleAsync(OktaEventHookEvent oktaEventHookEvent)
         {
-            _logger.LogInformation("Processing events");
+            _logger.LogInformation($"Processing Okta Event Hook with id {oktaEventHookEvent.EventId}");
 
             if (oktaEventHookEvent == null
                 || oktaEventHookEvent.Data == null
@@ -54,7 +54,7 @@ namespace OktaEventHookFunctionApp.Handlers.OktaEventHooks
                 }
             }
 
-            await Task.CompletedTask;
+            _logger.LogInformation($"Finished handling Okta Event Hook with id {oktaEventHookEvent.EventId}");
         }
     }
 }

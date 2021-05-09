@@ -1,18 +1,37 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
+using Microsoft.Extensions.Logging;
+
+using OktaEventHookFunctionApp.Services.Zendesk;
 
 namespace OktaEventHookFunctionApp.Handlers.OktaEvents
 {
     public class OktaUserUnsuspendedEventHandler : IOktaEventHandler
     {
-        public bool CanHandle(string eventType)
+        private const string HandlerEventType = "user.lifecycle.unsuspend";
+
+        private readonly ILogger<OktaUserCreatedEventHandler> _logger;
+
+        private readonly IZendeskUserService _zendeskUserService;
+
+        public OktaUserUnsuspendedEventHandler(ILogger<OktaUserCreatedEventHandler> logger, IZendeskUserService zendeskUserService)
         {
-            throw new NotImplementedException();
+            _logger = logger;
+            _zendeskUserService = zendeskUserService;
         }
 
-        public Task HandleAsync(OktaEvent oktaEvent)
+        public bool CanHandle(string eventType) => eventType.Equals(HandlerEventType);
+
+        public async Task HandleAsync(OktaEvent oktaEvent)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation($"Handling event type {oktaEvent.EventType}");
+
+            _logger.LogInformation($"{oktaEvent.Target.Count} targets found for event");
+            foreach (var target in oktaEvent.Target)
+            {
+                _logger.LogInformation($"Unsuspending Zendesk user from Okta User with id {target.Id}");
+                await _zendeskUserService.UnsuspendUserAsync(target.Id);
+            }
         }
     }
 }
