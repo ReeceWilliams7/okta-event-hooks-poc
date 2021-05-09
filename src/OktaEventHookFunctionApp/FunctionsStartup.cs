@@ -9,8 +9,6 @@ using OktaEventHookFunctionApp.Options;
 using OktaEventHookFunctionApp.Services.Okta;
 using OktaEventHookFunctionApp.Services.Zendesk;
 
-using Serilog;
-
 [assembly: FunctionsStartup(typeof(Startup))]
 
 namespace OktaEventHookFunctionApp
@@ -19,10 +17,6 @@ namespace OktaEventHookFunctionApp
     {
         public override void Configure(IFunctionsHostBuilder builder)
         {
-            var logger = new LoggerConfiguration()
-                            .WriteTo.Console()
-                            .CreateLogger();
-
             var configuration = builder.GetContext().Configuration;
 
             builder.Services.AddOptions();
@@ -33,10 +27,6 @@ namespace OktaEventHookFunctionApp
             builder.Services.Configure<OktaApiOptions>(configuration.GetSection(nameof(OktaApiOptions)));
 
             builder.Services.Configure<ZendeskApiOptions>(configuration.GetSection(nameof(ZendeskApiOptions)));
-
-            builder.Services.AddHttpClient();
-
-            builder.Services.AddLogging(lb => lb.AddSerilog(logger));
 
             builder.Services.AddScoped<IOktaEventHookHandler, OktaEventHookHandler>();
 

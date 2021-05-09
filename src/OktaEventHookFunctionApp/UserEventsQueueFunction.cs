@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 
 using Microsoft.Azure.WebJobs;
@@ -23,22 +22,15 @@ namespace OktaEventHookFunctionApp
         }
 
         [FunctionName("UserEventsQueue")]
-        public async Task Run([QueueTrigger("oktaeventhooks", Connection = "ConnectionStrings:oktaeventhooks-queue")]string myQueueItem, ILogger log)
+        public async Task Run([QueueTrigger("oktauserevents", Connection = "ConnectionStrings:oktauserevents")] string myQueueItem)
         {
-            log.LogInformation($"C# Queue trigger function processed: {myQueueItem}");
+            _logger.LogInformation($"Processing a new message from oktauserevents queue");
 
-            try
-            {
-                var oktaEventHookEvent = JsonConvert.DeserializeObject<OktaEventHookEvent>(myQueueItem);
+            _logger.LogInformation($"Attempting to deserialise message to an instance of {nameof(OktaEventHookEvent)}");
+            var oktaEventHookEvent = JsonConvert.DeserializeObject<OktaEventHookEvent>(myQueueItem);
 
-                await _oktaEventHookHander.HandleAsync(oktaEventHookEvent);
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                throw;
-            }
+            _logger.LogInformation($"Passing message to registered {nameof(IOktaEventHookHandler)} implementation to begin processing");
+            await _oktaEventHookHander.HandleAsync(oktaEventHookEvent);
         }
     }
 }
