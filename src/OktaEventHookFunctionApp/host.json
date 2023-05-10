@@ -1,15 +1,11 @@
 {
-  "version": "2.0",
-  "logging": {
-    "logLevel": {
-      "default": "Information",
-      "OktaEventHookFunctionApp": "Information"
-    },
-    "applicationInsights": {
-      "samplingExcludedTypes": "Request",
-      "samplingSettings": {
-        "isEnabled": true
-      }
+    "version": "2.0",
+    "logging": {
+        "applicationInsights": {
+            "samplingSettings": {
+                "isEnabled": true,
+                "excludedTypes": "Request"
+            }
+        }
     }
-  }
 }

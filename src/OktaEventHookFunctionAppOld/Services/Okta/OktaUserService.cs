@@ -1,6 +1,6 @@
-﻿using Okta.Sdk.Model;
+﻿using System.Threading.Tasks;
 
-using System.Threading.Tasks;
+using Okta.Sdk;
 
 namespace OktaEventHookFunctionApp.Services.Okta
 {
@@ -13,11 +13,11 @@ namespace OktaEventHookFunctionApp.Services.Okta
             _oktaClientFactory = oktaClientFactory;
         }
 
-        public async Task<User> GetUserAsync(string id)
+        public async Task<IUser> GetUserAsync(string id)
         {
-            var userApi = _oktaClientFactory.CreateUserApi();
+            var oktaClient = _oktaClientFactory.Create();
 
-            var user = await userApi.GetUserAsync(id);
+            var user = await oktaClient.Users.GetUserAsync(id);
 
             return user;
         }

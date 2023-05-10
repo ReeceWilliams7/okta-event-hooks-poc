@@ -1,9 +1,10 @@
-﻿using Okta.Sdk.Api;
+﻿
+using Okta.Sdk;
 
 namespace OktaEventHookFunctionApp.Services.Okta
 {
     public interface IOktaClientFactory
     {
-        IUserApi CreateUserApi();
+        IOktaClient Create();
     }
 }

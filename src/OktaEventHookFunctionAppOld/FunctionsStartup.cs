@@ -1,4 +1,5 @@
 ﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using OktaEventHookFunctionApp;
@@ -6,6 +7,7 @@ using OktaEventHookFunctionApp.Handlers.OktaEventHooks;
 using OktaEventHookFunctionApp.Handlers.OktaEvents;
 using OktaEventHookFunctionApp.Options;
 using OktaEventHookFunctionApp.Services.Okta;
+using OktaEventHookFunctionApp.Services.Zendesk;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 
@@ -31,7 +33,21 @@ namespace OktaEventHookFunctionApp
                 .WithScopedLifetime());
 
             builder.Services.AddScoped<IOktaClientFactory, OktaClientFactory>();
-            builder.Services.AddScoped<IOktaUserService, OktaUserService>();          
+            builder.Services.AddScoped<IOktaUserService, OktaUserService>();
+
+            builder.Services.AddScoped<IZendeskApiFactory, ZendeskApiFactory>();
+            var zendeskApiOptions = configuration.GetSection(nameof(ZendeskApiOptions)).Get<ZendeskApiOptions>();
+            if (zendeskApiOptions.MockCalls)
+            {
+                builder.Services.AddScoped<IZendeskUserService, MockZendeskUserService>();
+            }
+            else
+            {
+                builder.Services.AddScoped<IZendeskUserService, ZendeskUserService>();
+            }
+
+            
+            
         }
     }
 }

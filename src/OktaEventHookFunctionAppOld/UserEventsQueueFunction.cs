@@ -1,11 +1,11 @@
+using System.Threading.Tasks;
+
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
 
 using OktaEventHookFunctionApp.Handlers.OktaEventHooks;
-
-using System.Threading.Tasks;
 
 namespace OktaEventHookFunctionApp
 {

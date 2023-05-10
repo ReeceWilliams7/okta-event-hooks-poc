@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 
-using Okta.Sdk.Api;
-using Okta.Sdk.Client;
+using Okta.Sdk;
+using Okta.Sdk.Configuration;
 
 using OktaEventHookFunctionApp.Options;
 
@@ -16,16 +16,16 @@ namespace OktaEventHookFunctionApp.Services.Okta
             _oktaApiOptions = oktaApiOptions.Value;
         }
 
-        public IUserApi CreateUserApi()
+        public IOktaClient Create()
         {
-            var oktaClientConfiguration = new Configuration
+            var oktaClientConfiguration = new OktaClientConfiguration
             {
                 AuthorizationMode = AuthorizationMode.SSWS,
                 Token = _oktaApiOptions.Token,
                 OktaDomain = _oktaApiOptions.Url
             };
 
-            return new UserApi();
+            return new OktaClient(oktaClientConfiguration);
         }
     }
 }

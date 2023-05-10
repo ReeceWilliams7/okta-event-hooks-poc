@@ -3,6 +3,7 @@
 using Microsoft.Extensions.Logging;
 
 using OktaEventHookFunctionApp.Services.Okta;
+using OktaEventHookFunctionApp.Services.Zendesk;
 
 namespace OktaEventHookFunctionApp.Handlers.OktaEvents
 {
@@ -14,10 +15,13 @@ namespace OktaEventHookFunctionApp.Handlers.OktaEvents
 
         private readonly IOktaUserService _oktaUserService;
 
-        public OktaUserProfileUpdatedEventHandler(ILogger<OktaUserProfileUpdatedEventHandler> logger, IOktaUserService oktaUserService)
+        private readonly IZendeskUserService _zendeskUserService;
+
+        public OktaUserProfileUpdatedEventHandler(ILogger<OktaUserProfileUpdatedEventHandler> logger, IOktaUserService oktaUserService, IZendeskUserService zendeskUserService)
         {
             _logger = logger;
             _oktaUserService = oktaUserService;
+            _zendeskUserService = zendeskUserService;
         }
 
         public bool CanHandle(string eventType) => eventType.Equals(HandlerEventType);
@@ -31,6 +35,9 @@ namespace OktaEventHookFunctionApp.Handlers.OktaEvents
             {
                 _logger.LogInformation($"Retrieving user from Okta with id {target.Id}");
                 var oktaUser = await _oktaUserService.GetUserAsync(target.Id);
+
+                _logger.LogInformation($"Updating Zendesk user from Okta User with id {target.Id}");
+                await _zendeskUserService.UpdateUserAsync(oktaUser);
             }
         }
     }

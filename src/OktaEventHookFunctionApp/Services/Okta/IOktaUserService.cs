@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using Okta.Sdk.Model;
 
-using OktaSdk = Okta.Sdk;
+using System.Threading.Tasks;
 
 namespace OktaEventHookFunctionApp.Services.Okta
 {
     public interface IOktaUserService
     {
-        Task<OktaSdk.IUser> GetUserAsync(string id);
+        Task<User> GetUserAsync(string id);
     }
 }
